@@ -1,6 +1,7 @@
 Function test-server{
         <#
         .Description
+        test-server server port
         Params are server and port - accepts either common ports or numbers
         it then trys to resolve the DNS name and catches the error if cant 
         if it succeeds it goes on to test the connection to a port 
@@ -50,7 +51,7 @@ Function test-server{
                 # if it is neither write error to screen
                 Else
                     {
-                    write-host -ForegroundColor Red "You have entered and incorrect port - it needs to either be a number of one of HTTP,RDP,SMB,WINRM"
+                    write-host -ForegroundColor Red "You have entered and incorrect port $($porttest) - it needs to either be a number of one of HTTP,RDP,SMB,WINRM"
                     }
                 }
             }
