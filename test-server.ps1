@@ -25,7 +25,7 @@ Function test-server{
             $Lookups = (Resolve-DnsName $servertest -DnsOnly -ErrorAction Stop).IP4Address
             $DNSCheck = $Lookups| select -First 1
             }
-   
+        #Catch the error in the DNS record doesnt exist
         catch [System.ComponentModel.Win32Exception] 
             {Write-host -ForegroundColor red $servertest " was not found"}
     
