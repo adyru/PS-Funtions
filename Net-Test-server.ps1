@@ -5,7 +5,8 @@ Function Nettest-server{
         Params are server and port - accepts either common ports or numbers
         it then trys to resolve the DNS name and catches the error if cant 
         if it succeeds it goes on to test the connection to a port 
-        returns values back to script block in $CheckConnection
+        returns values back to script block in $tcpclient 
+        Timeout for connection is $Timer in MS
         #>
      [CmdletBinding()]
 
@@ -40,17 +41,15 @@ Function Nettest-server{
                 if($porttest -match "^\d{1,3}")
                     {
                      try {
-                        write-host "here"
-                        $PortConnection = New-Object System.Net.Sockets.TCPClient
-                        [int]$Timeout=100
-                        $PortConnection.SendTimeout = $Timeout
-                        $PortConnection.ReceiveTimeout = $Timeout
-                        $PortConnection.Connect($servertest,$PortTest)
-                        return  Write-Output -NoEnumerate  $PortConnection
+                        $tcpclient  = New-Object System.Net.Sockets.TCPClient
+                        $Timer=1500
+                        $StartConnection = $tcpclient.BeginConnect($servertest,$PortTest,$null,$null)
+                        $wait = $StartConnection.AsyncWaitHandle.WaitOne($timer,$false)
+                        return  Write-Output -NoEnumerate  $tcpclient
                         }
 
                     catch {
-                           return  Write-Output -NoEnumerate  $PortConnection
+                           return  Write-Output -NoEnumerate  $tcpclient
                           }
                     }
                     
@@ -63,4 +62,5 @@ Function Nettest-server{
 
 
 $a = Nettest-server google.com 444
-$a.Connected  
+$a
+
