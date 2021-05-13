@@ -34,16 +34,31 @@ Function test-server{
                 }
             Else
                 {
-                if($port -match "^\d{1,3}")
+                if($porttest -match "^\d{1,3}")
                     {
                     $global:CheckConnection = Test-NetConnection $servertest -port $Porttest
                     }
+                ElseIf($porttest -eq "SMB" -or $porttest -eq "RDP" -or $porttest -eq "HTTP" -or $porttest -eq "WINRM")
+                    {
+                    write-host "here"
+                    $porttest
+                    $global:CheckConnection = Test-NetConnection $servertest  $Porttest
+                    }
                 Else
                     {
-                    $global:CheckConnection = Test-NetConnection $servertest  $Porttest
+                    write-host -ForegroundColor Red "You have entered and incorrect port - it needs to either be a number of one of HTTP,RDP,SMB,WINRM"
                     }
                 }
             }
 
 }
+
+
+
+#test-server google.com1 443
+#write-host "the connection to $($servertest) on $($porttest) is$($CheckConnection.TcpTestSucceeded)"
+
+test-server google.com https
+write-host "the connection to $($servertest) on $($porttest) is$($CheckConnection.TcpTestSucceeded)"
+$CheckConnection
 
