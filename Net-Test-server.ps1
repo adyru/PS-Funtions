@@ -1,23 +1,21 @@
 Function Nettest-server{
         <#
         .Description
-        test-server server port
-        Params are server and port - accepts either common ports or numbers
+        test-server server port.Params are server and port - accepts either common ports or numbers
         it then trys to resolve the DNS name and catches the error if cant 
         if it succeeds it goes on to test the connection to a port 
-        returns values back to script block in $tcpclient 
-        Timeout for connection is $Timer in MS
+        returns values back to script block in $tcpclient -  Timeout for connection is $Timer in MS
         #>
      [CmdletBinding()]
 
         Param(
         [Parameter(Mandatory=$True)]
         [string]
-        $global:servertest,
+        $servertest,
 
         [Parameter(Mandatory=$True)]
         [string]
-        $global:Porttest
+        $Porttest
         )
         try
             {
@@ -31,7 +29,6 @@ Function Nettest-server{
             {Write-host -ForegroundColor red $servertest " was not found"}
     
             # Null out array
-            $global:CheckConnection = $null
              If ([STRING]::IsNullOrWhitespace($DNSCheck))
                 {
                 }
@@ -63,4 +60,3 @@ Function Nettest-server{
 
 $a = Nettest-server google.com 444
 $a
-
