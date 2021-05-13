@@ -12,7 +12,7 @@ Function Export-File {
         )
 
         If ([STRING]::IsNullOrWhitespace($OutVar))
-            {write-host "var is null"}
+            {write-host "$($OutVar) is null"}
         Else
             {$OutVar | Export-Csv -NoClobber -NoTypeInformation -path $OutFile}
 
