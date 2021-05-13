@@ -57,6 +57,16 @@ Function Nettest-server{
                 }
             }
 
-
+$stopwatch = [System.Diagnostics.Stopwatch]::new()
+$Stopwatch.Start()
 $a = Nettest-server google.com 444
 $a
+
+
+$b = Nettest-server google.com 443
+$b
+
+$c = Nettest-server google.com 444
+$c
+$Stopwatch.Stop()
+$Stopwatch.Elapsed
