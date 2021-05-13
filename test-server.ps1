@@ -54,11 +54,3 @@ Function test-server{
 }
 
 
-
-#test-server google.com1 443
-#write-host "the connection to $($servertest) on $($porttest) is$($CheckConnection.TcpTestSucceeded)"
-
-test-server google.com https
-write-host "the connection to $($servertest) on $($porttest) is$($CheckConnection.TcpTestSucceeded)"
-$CheckConnection
-
