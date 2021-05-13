@@ -40,8 +40,6 @@ Function test-server{
                     }
                 ElseIf($porttest -eq "SMB" -or $porttest -eq "RDP" -or $porttest -eq "HTTP" -or $porttest -eq "WINRM")
                     {
-                    write-host "here"
-                    $porttest
                     $global:CheckConnection = Test-NetConnection $servertest  $Porttest
                     }
                 Else
