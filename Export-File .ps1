@@ -14,12 +14,13 @@ Function Export-File {
         
         Param(
         [Parameter(Mandatory=$false)]
-        [string]
+        [Array]
         $OutVar,
 
         [Parameter(Mandatory=$True)]
         [string]
         $OutFile
+
         )
         Begin
             {
@@ -34,7 +35,7 @@ Function Export-File {
                 }
             Else
                 {
-                If ([STRING]::IsNullOrWhitespace($OutVar))
+                If (!($OutVar))
                     {
                     write-host "Variable is null"
                     return;
