@@ -31,6 +31,11 @@ Function Export-File {
             If($checkFile -eq $true)
                 {
                 write-host -ForegroundColor Red "$($outfile) already exists"
+                $Random = Get-Random -Minimum 1 -Maximum 100
+                $newOut =  $outfile -replace ".csv","$($Random).csv"
+                $newout
+                $OutVar | Export-Csv -NoClobber -NoTypeInformation -path $newOut
+                write-host -ForegroundColor Green "Variable exported to $($newOut)"
                 return;
                 }
             Else
@@ -47,7 +52,9 @@ Function Export-File {
                     If($OutcheckFile -eq $true)
                         {write-host -ForegroundColor Green "Variable exported to $($OutFile)"}
                     Else
-                        {write-host -ForegroundColor red "Variable not exported to $($OutFile)"}
+                        {
+                        write-host -ForegroundColor Green "Variable exported to $($newOut)"
+                        }
                     }
                 }
             
@@ -59,3 +66,8 @@ Function Export-File {
 
            }
 }
+
+$a = "test\"
+$out = "out.csv"
+
+Export-File $a $out
