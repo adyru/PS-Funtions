@@ -18,9 +18,16 @@ Function Write-Log {
     $Stamp = (Get-Date).toString("yyyy/MM/dd HH:mm:ss")
     $Line = "$Stamp $Level $Message"
     If($logfile) {
+        $ErrorLog = $logfile -replace ".txt", "-errors.txt"
+        If($level -ne "info")
+            {
+            Add-Content $ErrorLog  -Value $Line
+            }
         Add-Content $logfile -Value $Line
     }
     Else {
         Write-Output $Line
     }
 }
+
+Write-Log  -logfile "delete.txt" -Message "test" -Level "Error"
